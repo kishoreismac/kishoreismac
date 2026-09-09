@@ -31,7 +31,7 @@ jobs:
           python-version: '3.13'
       - name: Fetch Credly badges and update README
         env:
-          CREDLY_PROFILE: ${{ inputs.credly_profile || vars.CREDLY_PROFILE || 'kiran-kumar-nune' }}
+          CREDLY_PROFILE: ${{ inputs.credly_profile || vars.CREDLY_PROFILE  }}
         run: python .github/scripts/update_badges.py
       - name: Commit badge updates
         shell: bash
