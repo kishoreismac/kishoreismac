@@ -4,17 +4,44 @@ on:
   schedule:
     # Runs daily at 2 AM UTC
     - cron: "0 2 * * *"
-  workflow_dispatch: # Allow manual runs
+  workflow_dispatch:
+    inputs:
+      credly_profile:
+        description: Public Credly profile URL or username (overrides CREDLY_PROFILE repository variable)
+        required: false
+        type: string
+
+concurrency:
+  group: update-credly-badges
+  cancel-in-progress: false
 
 jobs:
   update-badges:
     name: Update README with Credly Badges
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: write
     steps:
-      - name: Update Badges
-        uses: pemtajo/badge-readme@main
+      - uses: actions/checkout@v4
         with:
-          CREDLY_USER: nunekiran@outlook.com # Uses your GitHub username
-          NUMBER_LAST_BADGES: 10 # Show last 10 badges (0 = all)
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Fetch Credly badges and update README
+        env:
+          CREDLY_PROFILE: ${{ inputs.credly_profile || vars.CREDLY_PROFILE || 'kiran-kumar-nune' }}
+        run: python .github/scripts/update_badges.py
+      - name: Commit badge updates
+        shell: bash
+        run: |
+          if git diff --quiet -- README.md; then
+            echo "Badges are already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update README with Credly badges"
+          git push

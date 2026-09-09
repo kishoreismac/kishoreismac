@@ -1,6 +1,7 @@
 ## Hi there 👋
 
 <!--START_SECTION:badges-->
+<a href="https://www.credly.com/badges/40cd8d12-b16c-4475-8659-ca5d0b475b06/public_url"><img src="https://images.credly.com/images/336eebfc-0ac3-4553-9a67-b402f491f185/azure-administrator-associate-600x600.png" alt="Microsoft Certified: Azure Administrator Associate" title="Microsoft Certified: Azure Administrator Associate" width="100" height="100" /></a>
 <!--END_SECTION:badges-->
 
 
