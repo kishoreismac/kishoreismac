@@ -49,7 +49,7 @@ def fetch_badges(username):
     return sorted(badges.values(), key=lambda b: (b.get("issued_at_date") or "", b["id"]), reverse=True)
 
 
-def render_badges(badges, limit=10):
+def render_badges(badges, limit=50):
     lines = []
     for badge in badges[:limit] if limit else badges:
         title = html.escape(badge["badge_template"]["name"], quote=True)
