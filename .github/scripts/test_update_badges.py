@@ -13,6 +13,9 @@ def badge(identifier="one", date="2023-04-08"):
 
 
 class BadgeTests(unittest.TestCase):
+    def test_credly_badges_tab_url(self):
+        self.assertEqual(updater.profile_username("https://www.credly.com/users/kishore1021/badges/credly"), "kishore1021")
+
     def test_profile_inputs(self):
         for profile in ("kiran-kumar-nune", "https://www.credly.com/users/kiran-kumar-nune/badges",
                         "https://www.credly.com/users/kiran-kumar-nune/edit/badges/credly"):

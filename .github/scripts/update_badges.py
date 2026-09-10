@@ -16,7 +16,7 @@ def profile_username(profile):
     username = profile.strip()
     if "://" in username:
         url = urlparse(username)
-        match = re.fullmatch(r"/users/([A-Za-z0-9._-]+)(?:/badges|/edit/badges/credly)?/?", url.path)
+        match = re.fullmatch(r"/users/([A-Za-z0-9._-]+)(?:/badges(?:/credly)?|/edit/badges/credly)?/?", url.path)
         if url.scheme != "https" or url.netloc not in ("credly.com", "www.credly.com") or not match:
             raise ValueError("Use a Credly URL such as https://www.credly.com/users/your-name/badges")
         username = match.group(1)
